@@ -1,4 +1,2 @@
 #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
-#include "Generated.xcconfig"
-SYMROOT = ${FLUTTER_APPLICATION_PATH}/build/ios
-
+#include "ephemeral/Flutter-Generated.xcconfig"
