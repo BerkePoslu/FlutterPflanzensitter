@@ -1,0 +1,3 @@
+#include "Generated.xcconfig"
+SYMROOT = ${FLUTTER_APPLICATION_PATH}/build/ios
+
