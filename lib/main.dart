@@ -13,6 +13,8 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'config.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -78,7 +80,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   MqttServerClient? client;
-  final String _topic = 'BBW/SoilMoisture';
+  final String _topic = MqttConfig.topic;
   
   SoilData? _currentData;
   bool _isConnected = false;
@@ -152,9 +154,9 @@ class _HomePageState extends State<HomePage> {
     // Use a random client ID to avoid collisions
     String clientIdentifier = 'flutter_plant_${Random().nextInt(100000)}';
     
-    // Simple MQTT connection matching ESP32 configuration
-    client = MqttServerClient('public.cloud.shiftr.io', clientIdentifier);
-    client!.port = 1883;
+    // MQTT connection using secure config
+    client = MqttServerClient(MqttConfig.broker, clientIdentifier);
+    client!.port = MqttConfig.port;
     client!.logging(on: false);
     client!.keepAlivePeriod = 20;
     client!.onDisconnected = _onDisconnected;
@@ -168,7 +170,7 @@ class _HomePageState extends State<HomePage> {
 
     try {
       debugPrint('Connecting to MQTT broker...');
-      await client!.connect('public', 'public');
+      await client!.connect(MqttConfig.username, MqttConfig.password);
     } catch (e) {
       debugPrint('Exception: $e');
       client!.disconnect();

@@ -1,0 +1,8 @@
+// Rename this file to config.dart and add your credentials
+class MqttConfig {
+  static const String broker = 'your-mqtt-broker.example.com';
+  static const String username = 'your-username';
+  static const String password = 'your-password';
+  static const int port = 1883;
+  static const String topic = 'BBW/SoilMoisture';
+}
